@@ -5,6 +5,22 @@ Created on Thu Jul 29 17:14:59 2021
 @author: ZHANG Jun
 """
 
+import argparse
+import sys
+
+# Parse -h/--help before heavy imports so "python script.py -h" works without TensorFlow
+def _parse_help():
+    p = argparse.ArgumentParser(description='HECC phase prediction.')
+    p.add_argument('--ann_model_path', help='Path to the ANN model.', default='OtherFiles/models/ANN', type=str)
+    p.add_argument('--svm_model_path', help='Path to the SVM model.', default='OtherFiles/models/SVM', type=str)
+    p.add_argument('--max_min_path', help='Path to the file that contains the max and min values of previous features.', default='OtherFiles/models/variables.txt', type=str)
+    p.add_argument('--formula', help='A list of chemical formulas that contain the cations only.', nargs='+')
+    return p.parse_args(sys.argv[1:])
+
+if __name__ == '__main__' and len(sys.argv) > 1 and sys.argv[1] in ('-h', '--help'):
+    _parse_help()
+    sys.exit(0)
+
 import numpy as np
 from pymatgen.core.ion import Ion
 import json
@@ -12,8 +28,6 @@ import os
 import tensorflow as tf
 import copy
 import joblib
-import argparse
-import sys
 
 class HeccPred(object):
     def __init__(self,
