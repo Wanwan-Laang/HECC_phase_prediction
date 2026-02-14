@@ -166,3 +166,8 @@ if __name__ == '__main__':
     predictor = HeccPred(args.ann_model_path, args.svm_model_path, args.max_min_path)
     predictor(args.formula)
 
+#print(predictor.get_feat(Ion.from_formula(args.formula[0])))
+#prop_list = predictor.get_feat(Ion.from_formula(args.formula[0]))
+#print("Feature list (prop_list) for formula '{}':".format(args.formula[0]))
+#for idx, prop in enumerate(prop_list):
+#    print(f"  Feature {idx+1}: {prop}")
